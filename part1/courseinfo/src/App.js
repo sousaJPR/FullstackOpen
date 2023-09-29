@@ -5,40 +5,27 @@ const Header = ({course}) => {
     </>
   )
 }
-const Content = (props) => {
-  console.log(props)
+const Content = ({parts}) => {
+  console.log(parts)
   return (
     <>
-      <Part1 part1 = { props.parts[0] } />
-      <Part2 part2 = { props.parts[1] } />
-      <Part3 part3 = { props.parts[2] } />
+      {parts.map(part =>
+        <Part key={part.name} part = { part } /> 
+      )}
+      
     </>
   )
 }
 
-const Part1 = ({ part1 }) => {
+const Part = ({ part }) => {
   return (
     <p>
-      {part1.name} {part1.exercises1}
+      {part.name} {part.exercises}
     </p>
   )
 }
 
-const Part2 = ({ part2 }) => {
-  return (
-    <p>
-      {part2.name} {part2.exercises}
-    </p>
-  )
-}
 
-const Part3 = ({ part3 }) => {
-  return (
-    <p>
-      {part3.name} {part3.exercises}
-    </p>
-  )
-}
 
 const Total = (props) => {
   return (
