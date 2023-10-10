@@ -1,5 +1,5 @@
 {
-  "name": "expart2",
+  "name": "thephonebook",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,13 +15,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:ui": "rm -rf build && cd ../notes_frontend && npm run build && cp -r build ../notes_backend",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server -p3001 --watch db.json"
   },
-  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": [
       "react-app",

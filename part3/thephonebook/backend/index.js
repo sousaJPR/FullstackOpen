@@ -1,9 +1,10 @@
 const express = require('express')
 const app = express()
 var morgan = require('morgan')
+const cors = require('cors')
 
 app.use(express.json())
-
+app.use(cors())
 
 // ----------------------------- OBJECTS
 let persons = [
@@ -37,10 +38,6 @@ morgan.token('body', req => {
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 // ----------------------------- ROUTES
-
-app.get('/', (req, res) => {
-    res.send('Hello world!')
-})
 
 // Get all persons
 app.get('/api/persons', (req, res) => {
