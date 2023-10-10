@@ -3,8 +3,6 @@ const app = express()
 var morgan = require('morgan')
 const cors = require('cors')
 
-app.use(express.json())
-app.use(cors())
 
 // ----------------------------- OBJECTS
 let persons = [
@@ -31,14 +29,20 @@ let persons = [
 ]
 
 // ----------------------------- MIDDLEWARES
+app.use(express.json())
+app.use(cors())
+app.use(express.static('build'))
 // Morgan token to collect body content from request
 morgan.token('body', req => {
     return JSON.stringify(req.body)
 })
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
-// ----------------------------- ROUTES
 
+// ----------------------------- ROUTES
+app.get('/', (request, response) => {
+    response.send('<h1>Hello world!</h1>')
+})
 // Get all persons
 app.get('/api/persons', (req, res) => {
     res.json(persons)
@@ -104,6 +108,7 @@ const randomId = () => {
 }
 
 
-const PORT = 3001
-app.listen(PORT)
-console.log(`Server running on port ${PORT}`)
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+})
