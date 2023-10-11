@@ -2,8 +2,16 @@ const express = require('express')
 const app = express()
 var morgan = require('morgan')
 const cors = require('cors')
+const mongoose = require('mongoose')
 
 
+// ----------------------------- MONGOOSE CONNECTION
+/* const password = process.argv[2]
+const url = `mongodb+srv://sousaJPR:${password}@cluster0.f2zniuh.mongodb.net/phonebookApp?retryWrites=true&w=majority`
+
+mongoose.set('strictQuery', false)
+mongoose.connect(url)
+ */
 // ----------------------------- OBJECTS
 let persons = [
     { 
