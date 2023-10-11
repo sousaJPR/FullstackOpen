@@ -57,6 +57,7 @@ const App = (props) => {
 
   }
 
+
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
 
   return (
