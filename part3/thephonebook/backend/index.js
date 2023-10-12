@@ -41,28 +41,27 @@ app.get('/api/persons/:id', (req, res) => {
 
 
 
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
     const body = req.body
-    /* const duplicate = persons.find(person => person.name === body.name)
-    if (!body.name) {
-        return res.status(400).json({error: 'name missing'})
+    /* if (!body.name) {
+        console.error('Error: name required')
+        return res.status(400).json({error: 'Name required'})
     } else if (!body.number) {
-        return res.status(400).json({error: 'number missing'})
-    } else if(duplicate) {
-        return res.status(400).json({error: 'name already exists'})
+        console.error('Error: number required')
+        return res.status(400).json({error: 'Number required'})
+    } else if (body.name.length < 3) {
+        console.error('Error: name must have at least 3 characteres')
+        return res.status(400).json({error: 'Name must have at least 3 characteres'})
     } */
-    if (body.name === undefined) {
-        return res.status(400).json({error: 'name needed'})
-    } else if (body.number === undefined) {
-        return res.status(400).json({error: 'number needed'})
-    }
     const person = new Person({
         name: body.name,
         number: body.number
     })
-    person.save().then(savedPerson => {
-        res.json(savedPerson)
-    })
+    person.save()
+        .then(savedPerson => {
+            res.json(savedPerson)
+        })
+        .catch(error => (next(error)))
 })
 
     // Update Person
@@ -103,10 +102,14 @@ app.get('/info', (req, res) => {
 // ----------------------------- FUNCTIONS
 const errorHandler = (error, req, res, next) => {
     console.log(error.message)
-
     if(error.name === 'CastError') {
         return res.status(400).send({error: 'malformatted id'})
+    } else if (error.name === 'ValidationError') {
+        return res.status(400).json({error: error.message})
+    } else if (error.name === 'ReferenceError') {
+        return res.status(400).json({error: error.message})
     }
+    next(error)
 }
 
 app.use(errorHandler)

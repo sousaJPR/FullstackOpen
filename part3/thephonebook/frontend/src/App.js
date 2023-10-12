@@ -28,8 +28,8 @@ const App = () => {
             setSuccessMsg(null)
         }, 5000)
     }
-    const errorMsgCreator = (msg) => {
-        setErrorMsg(msg)
+    const errorMsgCreator = (error) => {
+        setErrorMsg(error)
         setTimeout(() => {
             setErrorMsg(null)
         }, 5000)
@@ -68,11 +68,19 @@ const App = () => {
                 number: newNumber,
                 id: Math.max(...persons.map(person => person.id), 0) + 1
             }
-            contactService.createContact(newPerson)
-            setPersons(persons.concat(newPerson))
-            successMsgCreator(
-                `"${newName}" sucessfully added!`
-            )
+            contactService
+                .createContact(newPerson)
+                .then(returnedPerson => {
+                    setPersons(persons.concat(newPerson))
+                    successMsgCreator(
+                        `"${returnedPerson.data.name}" sucessfully added!`
+                    )
+                }
+                )
+                .catch(error => {
+                    errorMsgCreator(error.response.data.error)
+                })
+                
         }
         setNewName('')
         setNewNumber('')
