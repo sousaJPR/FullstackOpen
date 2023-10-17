@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MmQ2Njc2Yjg4NWExMDExNGY4YmI2MSIsImlhdCI6MTY5NzQ3NjYwOSwiZXhwIjoxNjk3NDgwMjA5fQ.rEt18BtHkN3WhEb1VKc67hPSYBQt6KqeJ26xMXL-kSg
+
+{
+    "title": "New blog with middleware",
+    "url": "url",
+    "likes": 50
+}
