@@ -55,10 +55,37 @@ button {
     justify-content: right;
 }
 
-.btn-show-div button{
-    margin-right:1rem ;
+.login-div {
+    max-width: 300px;
+    padding: 20px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 0.5px 5px 0.5px;
+}
+
+.login-div button {
+    margin-top: 5px;
+    margin-bottom: 2px;
+    padding: 5px 15px
+
+}
+.login-button{
+    margin: 1rem ;
+    padding: 5px 15px;
+    background-color: rgb(161, 250, 220);
+}
+.blue-button{
+    margin: 1rem ;
     padding: 10px 5px;
     background-color: rgb(161, 250, 245);
+}
+.red-button{
+    margin: 1rem ;
+    padding: 10px 15px;
+    background-color: rgba(250, 80, 80, 0.651);
 }
 
 .submit-form {
@@ -78,4 +105,12 @@ button {
     margin: 30px 0px;
     border-radius: 10px;
     padding: 10px;
+    text-align: center;
+}
+
+.create-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }

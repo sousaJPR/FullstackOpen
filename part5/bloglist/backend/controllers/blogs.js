@@ -3,7 +3,6 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 const { userExtractor } = require('../utils/middleware')
 
-
 blogsRouter.get('/', async (req, res) => {
     const blogs = await Blog.find({}).populate('user', { username: 1, name: 1})
     res.json(blogs)
@@ -23,9 +22,10 @@ blogsRouter.post('/', userExtractor, async (req, res) => {
     const body = req.body
     const userId = req.user
     const user = await User.findById(userId)
+    console.log('user:', user)
     const blog = new Blog({
         title: body.title,
-        author: user.name,
+        author: body.author,
         url: body.url,
         likes: body.likes,
         user: user.id

@@ -1,0 +1,21 @@
+.errorMsg {
+    color: red;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border: 1px solid;
+    border-radius: 10px;
+    background-color: rgba(235, 13, 13, 0.123)
+}
+
+.successMsg {
+    color: green;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border: 1px solid;
+    border-radius: 10px;
+    background-color: rgba(50, 235, 13, 0.123)
+}
