@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from "react"
-import Note from "./components/Note"
-import Notification from "./components/Notification"
+import { useState, useEffect, useRef } from 'react'
+import Note from './components/Note'
+import Notification from './components/Notification'
 import noteService from './services/notes'
-import Footer from "./components/Footer"
-import LoginForm from "./components/LoginForm"
-import NoteForm from "./components/NoteForm"
-import loginService from "./services/login"
-import Togglable from "./components/Togglable"
+import Footer from './components/Footer'
+import LoginForm from './components/LoginForm'
+import NoteForm from './components/NoteForm'
+import loginService from './services/login'
+import Togglable from './components/Togglable'
 
 const App = (props) => {
   const [notes, setNotes] = useState([])
@@ -95,7 +95,7 @@ const App = (props) => {
   // Forms
   const loginForm = () => (
     <div className="login-div">
-        {!user &&
+      {!user &&
           <Togglable buttonLabel="Login">
             <LoginForm
               handleLogin={handleLogin}
@@ -105,17 +105,17 @@ const App = (props) => {
               setPassword={setPassword}
             />
           </Togglable>}
-        {user &&
+      {user &&
         <div>
           <p>Welcome <strong>{user.name}</strong></p>
           <button onClick={handleLogout} className="red-button">Logout</button>
         </div>
-        }
-      </div>
+      }
+    </div>
   )
   const notesList = () => (
     <>
-    <div className="btn-show-div" >
+      <div className="btn-show-div" >
         <button className="blue-button" onClick={() => setShowAll(!showAll)}>
           Show {showAll ? 'important' : 'all'}
         </button>
@@ -131,17 +131,17 @@ const App = (props) => {
           )}
         </ul>
       </div>
-      </>
+    </>
   )
   const notesForm = () => (
     <div className="create-div">
-        {user &&
+      {user &&
           <Togglable buttonLabel="new note" ref={noteFormRef}>
             <NoteForm
               createNote={addNote} />
           </Togglable>
-        }
-      </div>
+      }
+    </div>
   )
 
 

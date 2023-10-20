@@ -5,6 +5,7 @@ import LoginForm from './components/LoginForm'
 import loginService from './services/login'
 import CreateForm from './components/CreateForm'
 import Notifications from './components/Notifications'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -48,7 +49,7 @@ const App = () => {
       setSuccessMsg(`Welcome, ${user.name}`)
       setTimeout(() => {
         setSuccessMsg(null)
-    }, 5000)
+      }, 5000)
     } catch (exception) {
       if (exception.response) {
         setErrorMsg(exception.response.data.error)
@@ -56,61 +57,71 @@ const App = () => {
         setErrorMsg('Other exception: ', exception.message)
         setTimeout(() => {
           setErrorMsg(null)
-      }, 5000)
+        }, 5000)
       }
     }
   }
   const handleLogout = async () => {
-    
-    setSuccessMsg(`Have a nice day, ${user.name}`)
-      setTimeout(() => {
-        setSuccessMsg(null)
-    }, 5000)
-    setUser(null) 
-    window.localStorage.removeItem('loggedBlogAppUser')
-    
-    
-  } 
 
-    return (
-      <div>
-        {!user ? (
-          <div>
-            <h2>Login</h2>
-            <Notifications 
-              errorMsg = {errorMsg}
-              successMsg={successMsg}/>
-            <LoginForm
-              user= {user}
-              handleLogin={handleLogin}
-              username={username}
-              setUsername={setUsername}
-              password={password}
-              setPassword={setPassword} 
-            />
-          </div>
-        ) : (
+    setSuccessMsg(`Have a nice day, ${user.name}`)
+    setTimeout(() => {
+      setSuccessMsg(null)
+    }, 5000)
+    setUser(null)
+    window.localStorage.removeItem('loggedBlogAppUser')
+
+
+  }
+
+  // Forms
+  const loginForm = () => (
+    <LoginForm
+      user={user}
+      handleLogin={handleLogin}
+      username={username}
+      setUsername={setUsername}
+      password={password}
+      setPassword={setPassword}
+    />
+  )
+  const createForm = () => (
+    <Togglable buttonLabel='New Blog'>
+      <CreateForm
+        user={user}
+        blogs={blogs}
+        setBlogs={setBlogs}
+        setErrorMsg={setErrorMsg}
+        setSuccessMsg={setSuccessMsg} />
+    </Togglable>
+  )
+  const sortedBlogs = [...blogs].sort((a, b) => b.likes - a.likes)
+  return (
+    <div>
+      {!user ? (
+        <div>
+          <h2>Login</h2>
+          <Notifications
+            errorMsg={errorMsg}
+            successMsg={successMsg} />
+          {loginForm()}
+        </div>
+      ) : (
         <div className='blogsPage'>
           <div>
             <h2>Blogs</h2>
-            <Notifications 
-              errorMsg = {errorMsg}
-              successMsg = {successMsg}
+            <Notifications
+              errorMsg={errorMsg}
+              successMsg={successMsg}
             />
             <p>{user.username} logged in || <button onClick={handleLogout}>Logout</button></p>
-            <CreateForm 
-              user={user}
-              blogs={blogs}
-              setBlogs={setBlogs}
-              setErrorMsg={setErrorMsg}
-              setSuccessMsg={setSuccessMsg}/>
-            {blogs.map(blog =>
-              <Blog key={blog.id} blog={blog} />
+            {createForm()}
+            {sortedBlogs.map(blog =>
+              <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} user={user}/>
             )}
-          </div>    
+          </div>
         </div>
-        )}
-      </div>
-    )
+      )}
+    </div>
+  )
 }
-  export default App
+export default App

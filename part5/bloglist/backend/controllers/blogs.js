@@ -4,16 +4,16 @@ const User = require('../models/user')
 const { userExtractor } = require('../utils/middleware')
 
 blogsRouter.get('/', async (req, res) => {
-    const blogs = await Blog.find({}).populate('user', { username: 1, name: 1})
+    const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
     res.json(blogs)
 })
 
 blogsRouter.get('/:id', async (req, res) => {
     const blog = await Blog.findById(req.params.id)
-    if(blog) {
+    if (blog) {
         res.json(blog)
     } else {
-        res.status(400).json({error: `id ${req.params.id} not found`})
+        res.status(400).json({ error: `id ${req.params.id} not found` })
     }
 })
 
@@ -37,33 +37,48 @@ blogsRouter.post('/', userExtractor, async (req, res) => {
 })
 
 blogsRouter.delete('/:id', userExtractor, async (req, res) => {
+    console.log('cheguei ao route')
     const user = req.user
-    if(!user) {
-        return res.status(400).json({error: 'invalid token'})
+    console.log('user', user)
+    if (!user) {
+        return res.status(400).json({ error: 'invalid token' })
     }
     const blog = await Blog.findById(req.params.id)
     if (!blog) {
-        return res.status(400).json({error: `Blog not found with id: ${req.params.id}`})
+        return res.status(400).json({ error: `Blog not found with id: ${req.params.id}` })
     }
-    const blogUser = blog.user.toString()
+    const blogUser = blog.user ? blog.user.toString() : req.user.id
     if (blogUser === user.id) {
         await Blog.findByIdAndRemove(req.params.id)
         res.status(204).end()
     } else {
-        res.status(400).json({error: 'only the creator can delete the blog'})
+        res.status(400).json({ error: 'only the creator can delete the blog' })
     }
-    
-    
+
+
 })
 
-blogsRouter.put('/:id', async (req, res) => {
-    const blogLikes = req.body.likes
+blogsRouter.put('/:id', userExtractor, async (req, res) => {
+    console.log('user', req.user)
+    const userId = 
+        req.body.user 
+        ? req.body.user.id 
+        : req.user.id
     const newBlog = {
-        ...req.body, likes: blogLikes
+        title: req.body.title,
+        author: req.body.author,
+        url: req.body.url,
+        likes: req.body.likes,
+	    user: userId
+    }
+    console.log('new blog', newBlog)
+    try {
+        await Blog.findByIdAndUpdate(req.params.id, newBlog, { new: true })
+        res.status(201).json(newBlog)
+    } catch (error) {
+        console.log('catch: ', error.message)
     }
 
-    await Blog.findByIdAndUpdate(req.params.id, newBlog, { new: true })
-    res.status(201).json(newBlog)
 })
 
 module.exports = blogsRouter
