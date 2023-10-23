@@ -8,15 +8,15 @@ import NoteForm from './components/NoteForm'
 import loginService from './services/login'
 import Togglable from './components/Togglable'
 
-const App = (props) => {
+const App = () => {
   const [notes, setNotes] = useState([])
+  // eslint-disable-next-line
   const [newNote, setNewNote] = useState('a new note...')
   const [showAll, setShowAll] = useState(true)
   const [errorMsg, setErrorMsg] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [loginVisible, setLoginVisible] = useState(false)
   const noteFormRef = useRef()
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
 
@@ -57,7 +57,7 @@ const App = (props) => {
       }, 5000)
     }
   }
-  const handleLogout = async (e) => {
+  const handleLogout = async () => {
     setUser(null)
     window.localStorage.removeItem('loggedNoteappUser')
   }
@@ -71,7 +71,7 @@ const App = (props) => {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       })
       .catch(error => {
-        setErrorMsg(`The Note "${note.content}" was already removed from the server.`)
+        setErrorMsg(`The Note "${note.content}" was already removed from the server. (Error: ${error.message})`)
         setTimeout(() => {
           setErrorMsg(null)
         }, 5000)
@@ -96,15 +96,15 @@ const App = (props) => {
   const loginForm = () => (
     <div className="login-div">
       {!user &&
-          <Togglable buttonLabel="Login">
-            <LoginForm
-              handleLogin={handleLogin}
-              username={username}
-              setUsername={setUsername}
-              password={password}
-              setPassword={setPassword}
-            />
-          </Togglable>}
+        <Togglable buttonLabel="Login">
+          <LoginForm
+            handleLogin={handleLogin}
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+          />
+        </Togglable>}
       {user &&
         <div>
           <p>Welcome <strong>{user.name}</strong></p>
@@ -136,10 +136,10 @@ const App = (props) => {
   const notesForm = () => (
     <div className="create-div">
       {user &&
-          <Togglable buttonLabel="new note" ref={noteFormRef}>
-            <NoteForm
-              createNote={addNote} />
-          </Togglable>
+        <Togglable buttonLabel="new note" ref={noteFormRef}>
+          <NoteForm
+            createNote={addNote} />
+        </Togglable>
       }
     </div>
   )

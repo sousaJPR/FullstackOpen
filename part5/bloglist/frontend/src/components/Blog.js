@@ -1,5 +1,4 @@
-import Togglable from './Togglable'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import blogService from '../services/blogs'
 
 const Blog = ({ blog, blogs, setBlogs, user }) => {
@@ -27,7 +26,6 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
     }
   }
   const handleDelete = async () => {
-    const blogId = blog.id
     const deleteBlog = window.confirm(`Delete blog "${blog.title} by ${blog.author}?`)
     try{
       if (deleteBlog) {
@@ -42,7 +40,7 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
 
   return (
     <div className="blog-container">
-      <div>
+      <div style={hiden}>
         <p>{title} - {author} <button onClick={toggleVisibility}>{visibility ? 'hide' : 'view'}</button></p>
       </div>
       <div style={shown} className="blog-details">

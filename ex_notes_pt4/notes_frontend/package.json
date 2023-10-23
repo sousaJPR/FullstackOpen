@@ -1,35 +1,26 @@
 {
-  "name": "expart2",
+  "name": "Bloglist-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.5.1",
-    "eslint": "^8.51.0",
-    "eslint-plugin-react": "^7.33.2",
-    "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.0",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:ui": "rm -rf build && cd ../notes_frontend && npm run build && cp -r build ../notes_backend",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server -p3001 --watch db.json"
+    "eslint": "eslint .",
+    "cypress:open": "cypress open",
+    "test:e2e": "cypress run"
   },
-  "proxy": "http://localhost:3001",
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -43,8 +34,13 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "http://localhost:3001",
   "devDependencies": {
-    "eslint-plugin-jest": "^27.4.2",
-    "json-server": "^0.17.4"
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "cypress": "^6.2.0",
+    "eslint-plugin-cypress": "^2.11.2",
+    "eslint-plugin-jest": "^24.1.3",
+    "prettier-eslint-cli": "^5.0.0"
   }
 }

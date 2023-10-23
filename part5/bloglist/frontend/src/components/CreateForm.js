@@ -33,23 +33,26 @@ const CreateForm = ({ user, blogs, setBlogs, setErrorMsg, setSuccessMsg }) => {
     <form className="createForm" onSubmit={createBlog}>
       <h2>Create Form</h2>
       <p>
-                title:  <input
+        title:  <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          placeholder='title'
         />
       </p>
       <p>
-                author: <input
+        author: <input
           type="text"
           value={user.name}
-          onChange={(e) => setAuthor(e.target.value)}/>
+          onChange={(e) => setAuthor(e.target.value)}
+          placeholder='author' />
       </p>
       <p>
-                url:    <input
+        url:    <input
           type="text"
           value={url}
-          onChange={(e) => setUrl(e.target.value)} />
+          onChange={(e) => setUrl(e.target.value)}
+          placeholder='url'/>
       </p>
       <button type='submit'>create</button>
     </form>
