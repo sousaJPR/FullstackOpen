@@ -1,4 +1,4 @@
-.errorMsg {
+.error {
   color: red;
   font-size: 18px;
   padding: 10px;
@@ -9,7 +9,7 @@
   background-color: rgba(235, 13, 13, 0.123)
 }
 
-.successMsg {
+.success {
   color: green;
   font-size: 18px;
   padding: 10px;
@@ -28,4 +28,14 @@
   margin: 3px;
   border: 1px solid;
   border-radius: 4px;
+}
+
+.div-header {
+
+  position: relative;
+}
+.div-header button {
+  position: absolute;
+  top: 1px;
+  right: 2px;
 }

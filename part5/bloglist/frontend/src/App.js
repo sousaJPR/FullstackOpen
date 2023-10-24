@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react'
-import Blog from './components/Blog'
+import BlogForm from './components/BlogForm'
 import blogService from './services/blogs'
 import LoginForm from './components/LoginForm'
-import loginService from './services/login'
-import CreateForm from './components/CreateForm'
 import Notifications from './components/Notifications'
-import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [notification, setNotification] = useState(null)
   const [user, setUser] = useState(null)
-  const [errorMsg, setErrorMsg] = useState('')
-  const [successMsg, setSuccessMsg] = useState('')
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
+    const fetchData = async () => {
+      const blogs = await blogService.getAll()
+      blogs.sort((a, b) => b.likes - a.likes)
       setBlogs(blogs)
-    )
+    }
+    fetchData()
+    
   }, [])
 
   useEffect(() => {
@@ -30,37 +30,26 @@ const App = () => {
     }
   }, [])
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    console.log('logging in with', username, password)
-
-    try {
-      const user = await loginService.login({
-        username,
-        password
-      })
-      window.localStorage.setItem(
-        'loggedBlogAppUser', JSON.stringify(user)
-      )
-      blogService.setToken(user.token)
-      setUser(user)
-      setUsername('')
-      setPassword('')
-      setSuccessMsg(`Welcome, ${user.name}`)
-      setTimeout(() => {
-        setSuccessMsg(null)
-      }, 5000)
-    } catch (exception) {
-      if (exception.response) {
-        setErrorMsg(exception.response.data.error)
-      } else {
-        setErrorMsg('Other exception: ', exception.message)
-        setTimeout(() => {
-          setErrorMsg(null)
-        }, 5000)
-      }
-    }
+  const notifyWith = (message, type = "success") => {
+    setNotification({ message, type })
+    setTimeout(() => { setNotification(null) }, 2000)
   }
+  const loginForm = () => (
+    <>
+      <h2>Login</h2>
+      <LoginForm
+        notifyWith={notifyWith}
+        user={user}
+        setUser={setUser}
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+      />
+    </>
+
+  )
+  /*
   const handleLogout = async () => {
 
     setSuccessMsg(`Have a nice day, ${user.name}`)
@@ -72,55 +61,106 @@ const App = () => {
 
 
   }
-
+  const addBlog = async (blogObject) => {
+    try {
+      console.log('começar')
+      const returnedBlog = await blogService.createBlog(blogObject)
+      console.log('guardado')
+      setSuccessMsg(`New blog "${blogObject.title}" by ${blogObject.author} created!`)
+      setTimeout(() => {
+        setSuccessMsg(null)
+      }, 5000)
+      setBlogs(blogs.concat(returnedBlog))
+      console.log('estado atualizado')
+    } catch (error) {
+      setErrorMsg('Error creating a new note')
+      setTimeout(() => {
+        setErrorMsg(null)
+      }, 5000)
+    }
+  }
   // Forms
-  const loginForm = () => (
-    <LoginForm
-      user={user}
-      handleLogin={handleLogin}
-      username={username}
-      setUsername={setUsername}
-      password={password}
-      setPassword={setPassword}
-    />
+  
   )
   const createForm = () => (
     <Togglable buttonLabel='New Blog'>
       <CreateForm
-        user={user}
-        blogs={blogs}
-        setBlogs={setBlogs}
-        setErrorMsg={setErrorMsg}
-        setSuccessMsg={setSuccessMsg} />
+        createBlog={addBlog} />
     </Togglable>
   )
-  const sortedBlogs = [...blogs].sort((a, b) => b.likes - a.likes)
+
+  // Blogs List and Functions
+
+
+  const handleLike = async (blog) => {
+    const newLikes = blog.likes ? blog.likes + 1 : 1
+    const updateBlog =
+      { ...blog, likes: newLikes }
+    console.log('updateblog: ', updateBlog)
+    try {
+      const updatedBlog = await blogService.likeAdd(updateBlog)
+      console.log('blog depois:', updatedBlog)
+      setBlogs(blogs.map((blog) => blog.id === updateBlog.id ? updateBlog : blog))
+    } catch (error) {
+      console.log('Erro no handleLike', error.message)
+    }
+  }
+  const handleDelete = async (blog) => {
+    const deleteBlog = window.confirm(`Delete blog "${blog.title} by ${blog.author}?`)
+    try {
+      if (deleteBlog) {
+        await blogService.deleteBlog(blog.id)
+        const newBlogs = await blogService.getAll()
+        setBlogs(newBlogs)
+      }
+    } catch (error) {
+      console.log('erro no catch de delete', error.message)
+    }
+  }
+  const toggleBlogVisibility = (blogId) => {
+    setBlogVisibility((prevVisibility) => ({
+      ...prevVisibility,
+      [blogId]: !prevVisibility[blogId]
+    }))
+  }
+  const blogList = () => {
+    return (
+      <div>
+        {sortedBlogs.map((blog) => (
+          <Blog
+            key={blog.id}
+            blog={blog}
+            user={user}
+            isVisible={blogVisibility[blog.id]}
+            toggleVisibility={() => toggleBlogVisibility(blog.id)}
+            handleLike={handleLike}
+            handleDelete={handleDelete}
+          />
+        ))}
+      </div>
+
+    )
+
+  }
+  
+ */
+
   return (
     <div>
-      {!user ? (
-        <div>
-          <h2>Login</h2>
-          <Notifications
-            errorMsg={errorMsg}
-            successMsg={successMsg} />
-          {loginForm()}
-        </div>
-      ) : (
+      <div>
+      <Notifications
+              notification={notification} />
+        {loginForm()}
+      </div>
+      {user &&
         <div className='blogsPage'>
           <div>
             <h2>Blogs</h2>
-            <Notifications
-              errorMsg={errorMsg}
-              successMsg={successMsg}
-            />
-            <p>{user.username} logged in || <button onClick={handleLogout}>Logout</button></p>
-            {createForm()}
-            {sortedBlogs.map(blog =>
-              <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} user={user}/>
-            )}
+            <BlogForm blogs={blogs} setBlogs={setBlogs} notifyWith={notifyWith} user={user} />
+
           </div>
         </div>
-      )}
+      }
     </div>
   )
 }

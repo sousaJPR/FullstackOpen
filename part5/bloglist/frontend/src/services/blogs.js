@@ -12,26 +12,28 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
+
 const createBlog = async newBlog  => {
   const config = {
     headers: { Authorization: token }
   }
   console.log('route de post')
+  console.log('newblog:', newBlog)
+  console.log('config:', config)
   const response = await axios.post(baseUrl, newBlog, config)
   console.log('criado')
   return response.data
 }
 
-const likeAdd = async (updateBlog) => {
+const updateBlog = async (id, updatedBlog) => {
   const config = {
     headers: { Authorization: token }
   }
-  console.log('likeAdd')
-  const response = await axios.put(`${baseUrl}/${updateBlog.id}`, updateBlog, config)
+  const response = await axios.put(`${baseUrl}/${updatedBlog.id}`, updatedBlog, config)
   return response.data
 }
 
-const deleteBlog = async (id) => {
+const removeBlog = async (id) => {
   const config = {
     headers: { Authorization: token }
   }
@@ -41,4 +43,4 @@ const deleteBlog = async (id) => {
   return response.data
 }
 
-export default { getAll, setToken, createBlog, likeAdd, deleteBlog }
+export default { getAll, setToken, createBlog, updateBlog, removeBlog }
