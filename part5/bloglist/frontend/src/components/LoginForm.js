@@ -43,7 +43,7 @@ const LoginForm = ({ notifyWith, user, setUser, username, setUsername, password,
     loginHtml = (
       <div>
         <p>{user.name} logged in</p>
-        <button onClick={handleLogout}>Logout</button>
+        <button id='logout-btn' onClick={handleLogout}>Logout</button>
       </div>
     )
   } else {
@@ -52,6 +52,7 @@ const LoginForm = ({ notifyWith, user, setUser, username, setUsername, password,
       <div>
         Username
         <input
+          id='username'
           type="text"
           value={username}
           name="Username"
@@ -62,6 +63,7 @@ const LoginForm = ({ notifyWith, user, setUser, username, setUsername, password,
       <div>
         Password
         <input
+          id='password'
           type="password"
           value={password}
           name="Password"
@@ -69,7 +71,7 @@ const LoginForm = ({ notifyWith, user, setUser, username, setUsername, password,
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type="submit">Login</button>
+      <button id='login-btn' type="submit">Login</button>
     </form>
     )  
 }

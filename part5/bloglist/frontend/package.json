@@ -17,7 +17,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
-    "eslint": "eslint ."
+    "eslint": "eslint .",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -40,6 +41,8 @@
   "proxy": "http://localhost:3001",
   "devDependencies": {
     "@testing-library/user-event": "^14.5.1",
+    "cypress": "^13.3.3",
+    "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-jest": "^27.4.3"
   }
 }

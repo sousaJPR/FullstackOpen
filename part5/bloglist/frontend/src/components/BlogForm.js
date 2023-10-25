@@ -10,7 +10,8 @@ const BlogForm = ({ blogs, setBlogs, notifyWith, user }) => {
     const blogObject = {
       title: title,
       author: author,
-      url: url
+      url: url,
+      user: user
     }
     blogServices.createBlog(blogObject).then(returnedBlog =>
       setBlogs(blogs.concat(returnedBlog)))
