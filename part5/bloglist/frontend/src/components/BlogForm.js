@@ -50,7 +50,7 @@ const BlogForm = ({ blogs, setBlogs, notifyWith, user }) => {
     }
   }
   
-  
+  const sortByLikes = (a, b) => b.likes - a.likes
   
   return (
     <div>
@@ -59,7 +59,7 @@ const BlogForm = ({ blogs, setBlogs, notifyWith, user }) => {
       </div>
       <div>
         <h2>List</h2>
-        {blogs  &&  blogs.map(blog => 
+        {blogs  &&  blogs.sort(sortByLikes).map(blog => 
           <Blog 
             key={blog.id}
             blog={blog}

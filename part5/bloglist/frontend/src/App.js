@@ -14,12 +14,11 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       const blogs = await blogService.getAll()
-      blogs.sort((a, b) => b.likes - a.likes)
       setBlogs(blogs)
     }
     fetchData()
     
-  }, [notification])
+  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
