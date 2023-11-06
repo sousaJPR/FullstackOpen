@@ -1,0 +1,99 @@
+{
+  "anecdotes": [
+    {
+      "content": "If it hurts, do it more often",
+      "id": 1,
+      "votes": 9
+    },
+    {
+      "content": "Adding manpower to a late software project makes it later!",
+      "id": 2,
+      "votes": 8
+    },
+    {
+      "content": "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
+      "id": 3,
+      "votes": 6
+    },
+    {
+      "content": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+      "id": 4,
+      "votes": 2
+    },
+    {
+      "content": "Premature optimization is the root of all evil.",
+      "id": 5,
+      "votes": 16
+    },
+    {
+      "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
+      "id": 6,
+      "votes": 4
+    },
+    {
+      "novo teste": "",
+      "id": 7,
+      "votes": 2
+    },
+    {
+      "teste": "",
+      "id": 8,
+      "votes": 2
+    },
+    {
+      "content": "novo teste",
+      "id": 9,
+      "votes": 2
+    },
+    {
+      "content": "novo teste",
+      "id": 10,
+      "votes": 3
+    },
+    {
+      "content": "novo teste",
+      "id": 11,
+      "votes": 3
+    },
+    {
+      "content": "novo teste",
+      "id": 12,
+      "votes": 3
+    },
+    {
+      "content": "novo teste",
+      "id": 13,
+      "votes": 4
+    },
+    {
+      "content": "new",
+      "id": 14,
+      "votes": 3
+    },
+    {
+      "content": "novo teste",
+      "id": 15,
+      "votes": 8
+    },
+    {
+      "content": "ola",
+      "id": 16,
+      "votes": 5
+    },
+    {
+      "content": "Teste com async",
+      "id": 17,
+      "votes": 6
+    },
+    {
+      "content": "Nova anecdote com votes",
+      "votes": 14,
+      "id": 18
+    },
+    {
+      "content": "Ola ola",
+      "votes": 3,
+      "id": 19
+    }
+  ]
+}
