@@ -7,17 +7,5 @@ export const getAll = () =>
 export const createAnecdote = (newObj) =>
     axios.post(baseUrl, newObj).then(res => res.data)
 
-export const voteAnecdote = (anecdote) => {
-    const anecdoteToVote = anecdote.anecdote
-    const id = anecdoteToVote.id
-    console.log('anecdote no request: ', anecdoteToVote)
-    const updatedAnecdote = {
-        ...anecdoteToVote, 
-        votes: anecdoteToVote.votes 
-        ? anecdoteToVote.votes + 1 
-        : 1
-    }
-    console.log('anecdote no request: ', updatedAnecdote)
-    axios.put(`${baseUrl}/${id}`, updatedAnecdote)
-    return updatedAnecdote
-}
+export const voteAnecdote = (anecdote) => 
+    axios.put(`${baseUrl}/${anecdote.id}`, anecdote).then(res => res.data)
