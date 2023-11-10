@@ -35,13 +35,6 @@ export const getUserInfo = (userId) => {
     return async dispatch => {
         try {
             const userInfo = await userService.getUser(userId)
-            /* const blogsDetailsPromises = userInfo.blogs.map(async blogId => {
-                const blogDetails = await blogService.getById(blogId)
-                return blogDetails
-            })
-            const blogDetails = await Promise.all(blogsDetailsPromises)
-            userInfo.blogs = blogDetails
-            console.log('user encontrado', userInfo) */
             dispatch(setUserDetails(userInfo))
         } catch (error) {
             console.log('erro no catch do getuserinfo', error)

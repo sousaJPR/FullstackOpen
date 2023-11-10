@@ -66,6 +66,7 @@ blogsRouter.put('/:id', userExtractor, async (req, res) => {
         url: req.body.url,
         likes: req.body.likes,
         user: req.body.user.id,
+        comments: req.body.comments,
         id: req.body.id
     }
     console.log('new blog', newBlog)

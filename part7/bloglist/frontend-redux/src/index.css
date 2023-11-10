@@ -1,32 +1,37 @@
-.error {
-  color: red;
-  font-size: 18px;
-  padding: 10px;
+.title {
   text-align: center;
-  margin-bottom: 1.5rem;
-  border: 1px solid;
-  border-radius: 10px;
-  background-color: rgba(235, 13, 13, 0.123);
+  margin-bottom: 80px;
 }
 
-.success {
-  color: green;
-  font-size: 18px;
-  padding: 10px;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  border: 1px solid;
-  border-radius: 10px;
-  background-color: rgba(50, 235, 13, 0.123);
-}
+/* Navbar */
 
-.blog-container {
+.nav-container {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  padding: 0px 10px;
-  margin: 3px;
-  border: 1px solid;
-  border-radius: 4px;
+}
+
+.logout-div {
+  display: flex;
+  position: absolute;
+  right: 20px;
+
+}
+
+.blog-card {
+  position: relative;
+  display: flex;
+  padding: 15;
+
+}
+
+.list-toggle-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.blog-details {
+  padding: 25px;
 }
 
 .div-header {
@@ -40,4 +45,8 @@
 
 #remove-btn {
   margin-bottom: 10px;
+}
+
+.form-btn {
+  margin-top: 10px;
 }

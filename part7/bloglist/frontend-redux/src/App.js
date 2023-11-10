@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import BlogForm from "./components/BlogForm";
+import { useEffect } from "react";
+import BlogList from "./components/BlogList";
+import Blog from "./components/Blog";
 import Navbar from "./components/Navbar"
 import LoginForm from "./components/LoginForm";
 import Notifications from "./components/Notifications";
@@ -19,23 +20,28 @@ const App = () => {
   }, [])
 
   return (
-    <div>
+    <div className="container">
       <div>
         <Navbar />
+        <h1 className="title">Blog List App</h1>
         <Notifications />
-        <LoginForm />
+        
       </div>
-      {user && (
+      {user
+      ? (
         <div className="blogsPage">
           <div>
             <Routes>
-              <Route path="/" element={<BlogForm user={user} />} />
+              <Route path="/" element={<BlogList user={user} />} />
+              <Route path="/blogs/:blogId" element={<Blog />} />
               <Route path="/createBlog" element={<CreateBlog />} />
               <Route path="/users" element={<Users />} />
               <Route path="/users/:userId" element={<User />} />
             </Routes>
           </div>
         </div>
+      ) : (
+        <LoginForm />
       )}
     </div>
   );

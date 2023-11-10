@@ -1,19 +1,20 @@
 import { useSelector } from "react-redux";
+import { Alert } from "react-bootstrap";
 
 const Notifications = () => {
   const notification = useSelector((state) => state.notification.payload)
   const typeOf = useSelector((state) => state.notification.type)
   if (typeOf === 'notification/success') {
     return (
-      <div className="success">
+      <Alert variant="success">
         {notification}
-      </div>
+      </Alert>
     )
   } else if (typeOf === 'notification/unsuccess') {
     return (
-      <div className="error">
+      <Alert variant="danger">
         {notification}
-      </div>
+      </Alert>
     )
   }
   return null
